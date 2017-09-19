@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex';
 export default {
   name: 'Login',
   data () {
@@ -61,7 +62,20 @@ export default {
     }
   },
   methods: {
-    login () {
+    ...mapMutations([
+      'SET_LOGGED'
+    ]),
+    ...mapActions([
+      'GET_RESUME'
+    ]),
+    async login () {
+      await this.GET_RESUME({id: 1});
+      this.$message({
+        message: '登录成功',
+        type: 'success',
+        duration: 1500
+      });
+      this.SET_LOGGED({state: true});
       this.$router.push({name: 'Home'})
     }
   }

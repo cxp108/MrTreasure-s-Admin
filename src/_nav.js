@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: '仪表盘',
-      url: '/dashboard',
+      url: '/admin/dashboard',
       icon: 'icon-speedometer'
     },
     {
@@ -16,33 +16,34 @@ export default {
       children: [
         {
           name: '个人信息',
-          url: '/',
+          url: '/admin/userinfo',
           icon: 'fa fa-hdd-o'
         },
         {
           name: '工作经历',
-          url: '/',
+          url: '##',
           icon: 'fa fa-hdd-o'
         },
         {
           name: '项目经历',
-          url: '/',
+          url: '##',
           icon: 'fa fa-hdd-o'
         }
       ]
     },
     {
       name: '个人博客',
-      url: '/',
       icon: 'fa fa-id-card-o',
       children: [
         {
           name: '博客首页',
-          url: '/'
+          url: '##',
+          icon: 'fa fa-superpowers'
         },
         {
           name: '编辑文章',
-          url: '/'
+          url: '##',
+          icon: 'fa fa-superpowers'
         }
       ]
     }
