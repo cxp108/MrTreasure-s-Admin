@@ -17,7 +17,7 @@ import UserInfo from '@/pages/Resume/UserInfo';
 Vue.use(Router)
 
 const router =  new Router({
-  mode: 'hash',
+  mode: 'history',
   linkActiveClass: 'open active',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
@@ -53,7 +53,7 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     console.log(store.state.logged);
-    if (!store.state.logged) {
+    if (false) {
       next({
         path: '/',
         query: { redirect: to.fullPath }

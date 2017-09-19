@@ -59,7 +59,7 @@
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item>
           <i class="fa fa-shield"></i> Lock Account</b-dropdown-item>
-        <b-dropdown-item>
+        <b-dropdown-item @click="logOut">
           <i class="fa fa-lock"></i> Logout</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
@@ -85,6 +85,9 @@ export default {
     asideToggle (e) {
       e.preventDefault()
       document.body.classList.toggle('aside-menu-hidden')
+    },
+    logOut () {
+      this.$router.push({path: '/'});
     }
   }
 }
