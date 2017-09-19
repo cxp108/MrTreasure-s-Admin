@@ -34,6 +34,7 @@ export default {
     {
       name: '个人博客',
       url: '/',
+      icon: 'fa fa-id-card-o',
       children: [
         {
           name: '博客首页',
