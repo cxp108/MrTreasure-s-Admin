@@ -21,7 +21,7 @@ export default {
         },
         {
           name: '工作经历',
-          url: '##',
+          url: '/admin/career',
           icon: 'fa fa-hdd-o'
         },
         {
@@ -30,6 +30,9 @@ export default {
           icon: 'fa fa-hdd-o'
         }
       ]
+    },
+    {
+      divider: true
     },
     {
       name: '个人博客',

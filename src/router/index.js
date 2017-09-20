@@ -12,7 +12,7 @@ import Login from '@/views/Login';
 // Pages
 // Resume
 import UserInfo from '@/pages/Resume/UserInfo';
-
+import Career from '@/pages/Resume/Career';
 
 Vue.use(Router)
 
@@ -42,6 +42,11 @@ const router =  new Router({
           path: 'userinfo',
           name: 'UserInfo',
           component: UserInfo
+        },
+        {
+          path: 'career',
+          name: 'Career',
+          component: Career
         }
 
       ]
