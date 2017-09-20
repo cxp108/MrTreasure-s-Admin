@@ -20,7 +20,8 @@
       label="操作"
       width="150">
         <template scope="scope">
-          <el-button @click="handleClick(scope.$index, scope.row)"  type="danger" size="small">编辑</el-button>
+          <el-button @click="handleClick(scope.$index, scope.row)"  type="success" size="small">编辑</el-button>
+          <el-button @click="handleClick(scope.$index, scope.row)"  type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

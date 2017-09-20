@@ -26,7 +26,7 @@ export default {
         },
         {
           name: '项目经历',
-          url: '##',
+          url: '/admin/project',
           icon: 'fa fa-hdd-o'
         }
       ]

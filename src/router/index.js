@@ -13,6 +13,7 @@ import Login from '@/views/Login';
 // Resume
 import UserInfo from '@/pages/Resume/UserInfo';
 import Career from '@/pages/Resume/Career';
+import Project from '@/pages/Resume/Project';
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ const router =  new Router({
           path: 'career',
           name: 'Career',
           component: Career
+        },
+        {
+          path: 'project',
+          name: 'Project',
+          component: Project
         }
 
       ]
