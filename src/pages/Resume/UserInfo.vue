@@ -38,7 +38,7 @@
     <div class="row">
       <label for="motto" class="width-max">
         个性签名
-        <el-input v-model="motto" placeholder="请输入内容" id="motto" class="width-max" disabled></el-input>
+        <el-input v-model="motto" placeholder="请输入内容" id="motto" class="width-max"></el-input>
       </label>
     </div>
     <div class="markdown">

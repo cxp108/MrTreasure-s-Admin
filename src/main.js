@@ -14,7 +14,8 @@ import 'element-ui/lib/theme-default/index.css';
 Vue.use(BootstrapVue);
 Vue.use(ElementUI);
 
-
+//window.baseURL = 'http://resume.mrtreasure.cn/api';
+window.baseURL = 'http://localhost:2001/api';
 
 /* eslint-disable no-new */
 new Vue({

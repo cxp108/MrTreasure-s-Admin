@@ -7,6 +7,7 @@ import Full from '@/containers/Full'
 // Views
 import Dashboard from '@/views/Dashboard'
 import Login from '@/views/Login';
+import Page404 from '@/views/Page404';
 
 
 // Pages
@@ -56,6 +57,11 @@ const router =  new Router({
         }
 
       ]
+    },
+    {
+      path: '*',
+      name: '404',
+      component: Page404
     }
   ]
 });

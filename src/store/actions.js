@@ -1,8 +1,6 @@
 import type from './type';
 import { ajax } from '@/common';
 
-const baseURL = 'http://resume.mrtreasure.cn/api';
-
 const actions = {
   async GET_RESUME({commit}, payload) {
     let result = await ajax.get(`${baseURL}/resume/${payload.id}`);
