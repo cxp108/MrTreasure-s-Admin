@@ -6,16 +6,19 @@ import router from './router';
 import store from './store/';
 // 第三方插件
 import BootstrapVue from 'bootstrap-vue';
+Vue.use(BootstrapVue);
+
 import axios from 'axios';
 window.axios = axios;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.common['token'] = 'token-Sunshine';
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
-
-Vue.use(BootstrapVue);
 Vue.use(ElementUI);
 
 //window.baseURL = 'http://resume.mrtreasure.cn/api';
-window.baseURL = 'http://localhost:2001/api';
+window.baseURL = process.env.API;
 
 /* eslint-disable no-new */
 new Vue({

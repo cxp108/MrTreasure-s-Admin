@@ -1,5 +1,6 @@
 const state = {
   logged: false,
+  token: null,
   userInfo: {
     name: '',
     diploma: '',

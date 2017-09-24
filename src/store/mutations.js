@@ -22,6 +22,9 @@ const mutations = {
   },
   [type.SET_PRO] (state, payload) {
     state.proInfo = payload.data;
+  },
+  [type.SET_TOKEN] (state, payload) {
+    state.token = payload.token;
   }
 };
 

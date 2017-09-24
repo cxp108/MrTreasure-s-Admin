@@ -66,17 +66,34 @@ export default {
       'SET_LOGGED'
     ]),
     ...mapActions([
-      'GET_RESUME'
+      'GET_RESUME',
+      'SIGN_IN'
     ]),
     async login () {
-      await this.GET_RESUME({id: 1});
-      this.$message({
-        message: '登录成功',
-        type: 'success',
-        duration: 1500
-      });
-      this.SET_LOGGED({state: true});
-      this.$router.push({name: 'Home'})
+      let data = {
+        username: this.username,
+        password: this.password,
+        extra: 'extra msg'
+      };
+      let result = await this.SIGN_IN({data});
+      if (result) {
+        await this.GET_RESUME({ id: 1 });
+        this.$message({
+          message: '登录成功',
+          type: 'success',
+          duration: 1500
+        });
+        this.SET_LOGGED({ state: true });
+        this.$router.push({ name: 'Home' })
+      } else {
+        this.$message({
+          message: '帐号或者密码错误',
+          type: 'error',
+          duration: 1500
+        });
+        this.username = '';
+        this.password = '';
+      }
     }
   }
 }
