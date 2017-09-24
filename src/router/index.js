@@ -8,6 +8,7 @@ import Full from '@/containers/Full'
 import Dashboard from '@/views/Dashboard'
 import Login from '@/views/Login';
 import Page404 from '@/views/Page404';
+import Register from '@/views/Register';
 
 
 // Pages
@@ -27,6 +28,11 @@ const router =  new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     },
     {
       path: '/admin',

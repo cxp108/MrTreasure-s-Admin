@@ -19,6 +19,12 @@ const actions = {
       return true;
     }
     return false;
+  },
+
+  async SIGN_UP({commit}, payload) {
+    let data = JSON.stringify(payload.data);
+    let result = await ajax.post(`${baseURL}/user/signup`, data);
+    return result;
   }
 };
 

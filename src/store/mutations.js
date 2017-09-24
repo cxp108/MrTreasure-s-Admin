@@ -25,6 +25,7 @@ const mutations = {
   },
   [type.SET_TOKEN] (state, payload) {
     state.token = payload.token;
+    axios.defaults.headers.common['Token'] = payload.token;
   }
 };
 

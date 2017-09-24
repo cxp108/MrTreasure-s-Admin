@@ -31,7 +31,7 @@
                 <div>
                   <h2>MrTreasure's Admin</h2>
                   <p style="margin-top: 20%">暂不开放访问，项目搭建中</p>
-                  <!-- <button type="button" class="btn btn-primary active mt-3">Register Now!</button> -->
+                  <button type="button" class="btn btn-primary active mt-3" @click="register">Register Now!</button>
                 </div>
               </div>
             </div>
@@ -94,6 +94,9 @@ export default {
         this.username = '';
         this.password = '';
       }
+    },
+    register () {
+      this.$router.push({name: 'register'});
     }
   }
 }

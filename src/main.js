@@ -11,13 +11,13 @@ Vue.use(BootstrapVue);
 import axios from 'axios';
 window.axios = axios;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.common['token'] = 'token-Sunshine';
+
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 Vue.use(ElementUI);
 
-//window.baseURL = 'http://resume.mrtreasure.cn/api';
+// 根据环境设置基本API
 window.baseURL = process.env.API;
 
 /* eslint-disable no-new */
