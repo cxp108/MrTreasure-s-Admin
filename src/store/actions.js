@@ -28,11 +28,18 @@ const actions = {
     return result;
   },
 
-  async UPDATA_USER_INFO({commit, state}, payload) {
+  async UPDATE_USER_INFO({commit, state}, payload) {
     let data = payload.data;
     data.id = state.id;
     data = JSON.stringify(data);
     let result = await ajax.put(`${baseURL}/userInfo/${state.id}`, data);
+    return result;
+  },
+
+  async UPDATE_CAREER_INFO({commit, state}, payload) {
+    let data = JSON.stringify(payload.data);
+    console.log(data);
+    let result = await ajax.post(`${baseURL}/careerInfo`, data);
     return result;
   }
 };

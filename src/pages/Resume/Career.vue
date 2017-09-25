@@ -64,6 +64,7 @@ import  SimpleMDE from 'simplemde';
 import 'simplemde/dist/simplemde.min.css';
 import marked from 'marked';
 import { formatDate } from '@/common';
+import { mapActions } from 'vuex';
 export default {
   name: 'career',
   data () {
@@ -104,7 +105,7 @@ export default {
         let end = formatDate(this.jobTime[1], 'yyyy-MM-dd');
         return `${start}~${end}`;
       } else {
-        return '';
+        return null;
       }
     }
   },
@@ -115,6 +116,9 @@ export default {
     this.markdown = new SimpleMDE(this.$refs.md);
   },
   methods: {
+    ...mapActions([
+      'UPDATE_CAREER_INFO'
+    ]),
     handleClick (index, row) {
       this.isEdit = true;
       this.companyName = row.companyName;
@@ -122,7 +126,7 @@ export default {
       this.markdown.value(row.jobContent);
       this.id = row.id;
     },
-    save () {      
+    async save () {      
       let data = {
         id: this.id,
         companyName: this.companyName,
@@ -131,7 +135,7 @@ export default {
         jobContent: marked(this.markdown.value())
       };
       if (this.isInsert) {
-        this.insertCareer(data);
+        await this.insertCareer(data);
       } else {
         this.updateCareer(data);
       }
@@ -145,11 +149,19 @@ export default {
       this.markdown.value('');
       this.id = null;
     },
-    updateCareer (data) {  
-      this.$message({
-        type: 'success',
-        message: '修改成功'
-      });
+    async updateCareer (data) {
+      let result = await this.UPDATE_CAREER_INFO({data});
+      if (result.code == 1) {
+        this.$message({
+          type: 'success',
+          message: '修改成功'
+        });
+      } else {
+        this.$message({
+          type: 'error',
+          message: '修改失败'
+        });
+      }
       this.isEdit = false;
     },
     insertCareer (data) {

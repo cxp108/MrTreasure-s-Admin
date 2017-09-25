@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'UPDATA_USER_INFO',
+      'UPDATE_USER_INFO',
       'GET_RESUME'
     ]),
     initData () {
@@ -130,7 +130,7 @@ export default {
         skill,
         introduction
       };
-      let result = await this.UPDATA_USER_INFO({data});
+      let result = await this.UPDATE_USER_INFO({data});
       console.log(result);
       if (result.code == 1) {
         this.$message({
