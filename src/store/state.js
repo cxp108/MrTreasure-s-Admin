@@ -1,6 +1,7 @@
 const state = {
   logged: false,
   token: null,
+  id: 0,
   userInfo: {
     name: '',
     diploma: '',

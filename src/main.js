@@ -11,6 +11,8 @@ Vue.use(BootstrapVue);
 import axios from 'axios';
 window.axios = axios;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.put['Content-Type'] = 'application/json';
+axios.defaults.headers.delete['Content-Type'] = 'application/json';
 
 
 import ElementUI from 'element-ui';

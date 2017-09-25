@@ -15,7 +15,8 @@ const actions = {
     let result = await ajax.post(`${baseURL}/user/signin`, data);
     console.log('signin', result);
     if(result.code == 1) {
-      commit('SET_TOKEN', {token: result.token});
+      commit('SET_TOKEN', {token: result.data.token});
+      commit('SET_ID', {id: result.data.id});
       return true;
     }
     return false;
@@ -24,6 +25,14 @@ const actions = {
   async SIGN_UP({commit}, payload) {
     let data = JSON.stringify(payload.data);
     let result = await ajax.post(`${baseURL}/user/signup`, data);
+    return result;
+  },
+
+  async UPDATA_USER_INFO({commit, state}, payload) {
+    let data = payload.data;
+    data.id = state.id;
+    data = JSON.stringify(data);
+    let result = await ajax.put(`${baseURL}/userInfo/${state.id}`, data);
     return result;
   }
 };

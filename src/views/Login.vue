@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
   name: 'Login',
   data () {
@@ -53,6 +53,9 @@ export default {
     }
   },
   computed: {
+    ...mapState([
+      'id'
+    ]),
     disable () {
       if (this.username && this.password) {
         return false;
@@ -76,8 +79,9 @@ export default {
         extra: 'extra msg'
       };
       let result = await this.SIGN_IN({data});
+      console.log(this.id);
       if (result) {
-        await this.GET_RESUME({ id: 1 });
+        await this.GET_RESUME({ id: this.id });
         this.$message({
           message: '登录成功',
           type: 'success',

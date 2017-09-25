@@ -65,6 +65,7 @@
 import  SimpleMDE from 'simplemde';
 import 'simplemde/dist/simplemde.min.css';
 import marked from 'marked';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'user-info',
   data () {
@@ -92,7 +93,16 @@ export default {
     this.markDown2 = new SimpleMDE({ element: document.getElementById('skill') });
     this.markDown2.value(this.$store.state.userInfo.skill);
   },
+  computed: {
+    ...mapState([
+      'id'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'UPDATA_USER_INFO',
+      'GET_RESUME'
+    ]),
     initData () {
       this.name = this.$store.state.userInfo.name;
       this.diploma = this.$store.state.userInfo.diploma;
@@ -104,8 +114,39 @@ export default {
       this.major = this.$store.state.userInfo.major;
       this.university = this.$store.state.userInfo.university;
     },
-    save () {
-      let str = this.markDown1.value();
+    async save () {
+      let skill = marked(this.markDown1.value());
+      let introduction = marked(this.markDown2.value());
+      let data = {
+        name: this.name,
+        diploma: this.diploma,
+        email: this.email,
+        jobForward: this.jobForward,
+        motto: this.motto,
+        careerYear: this.careerYear,
+        phone: this.phone,
+        major: this.major,
+        university: this.university,
+        skill,
+        introduction
+      };
+      let result = await this.UPDATA_USER_INFO({data});
+      console.log(result);
+      if (result.code == 1) {
+        this.$message({
+          duration: 1500,
+          type: 'success',
+          message: result.msg
+        });
+        this.GET_RESUME({ id: this.id });
+      } else {
+        this.$message({
+          duration: 1500,
+          type: 'error',
+          message: result.msg
+        });
+      }
+
     },
     rollback () {
       this.initData();

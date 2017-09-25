@@ -90,7 +90,7 @@ export default {
       isInsert: false,
 
       // 编辑的属性
-      id: 0,
+      id: null,
       companyName: '',
       jobTime: '',
       jobName: '',
@@ -143,10 +143,9 @@ export default {
       this.companyName = '';
       this.jobName = '';
       this.markdown.value('');
-      this.id = 0;
+      this.id = null;
     },
     updateCareer (data) {  
-      console.log(data);
       this.$message({
         type: 'success',
         message: '修改成功'
@@ -154,7 +153,6 @@ export default {
       this.isEdit = false;
     },
     insertCareer (data) {
-      console.log(data);
       this.$message({
         type: 'success',
         message: '增加成功'
