@@ -20,8 +20,8 @@
       label="操作"
       width="150">
         <template scope="scope">
-          <el-button @click="handleClick(scope.$index, scope.row)"  type="success" size="small">编辑</el-button>
-          <el-button @click="handleClick(scope.$index, scope.row)"  type="danger" size="small">删除</el-button>
+          <el-button @click="editCareer(scope.$index, scope.row)"  type="success" size="small">编辑</el-button>
+          <el-button @click="deleteCareer(scope.$index, scope.row)"  type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,29 +63,29 @@
 import  SimpleMDE from 'simplemde';
 import 'simplemde/dist/simplemde.min.css';
 import marked from 'marked';
-import { formatDate } from '@/common';
-import { mapActions } from 'vuex';
+import { formatDate } from 'src/common';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'career',
   data () {
     return {
-      careerList: [
-        {
-          companyName: '畅联九洲',
-          jobTime: '20170608',
-          jobName: '前端工程师'
-        },
-        {
-          companyName: '畅联九洲',
-          jobTime: '20170608',
-          jobName: '前端工程师'
-        },
-        {
-          companyName: '畅联九洲',
-          jobTime: '20170608',
-          jobName: '前端工程师'
-        }
-      ],
+      // careerList: [
+      //   {
+      //     companyName: '畅联九洲',
+      //     jobTime: '20170608',
+      //     jobName: '前端工程师'
+      //   },
+      //   {
+      //     companyName: '畅联九洲',
+      //     jobTime: '20170608',
+      //     jobName: '前端工程师'
+      //   },
+      //   {
+      //     companyName: '畅联九洲',
+      //     jobTime: '20170608',
+      //     jobName: '前端工程师'
+      //   }
+      // ],
       // 状态控制
       isEdit: false,
       isInsert: false,
@@ -99,6 +99,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      careerList: state => state.careerInfo
+    }),
     fixDate () {
       if (this.jobTime.length > 0) {
         let start = formatDate(this.jobTime[0], 'yyyy-MM-dd');
@@ -110,21 +113,28 @@ export default {
     }
   },
   created () {
-    this.careerList = this.$store.state.careerInfo;
+    //this.careerList = this.$store.state.careerInfo;
   },
   mounted () {
     this.markdown = new SimpleMDE(this.$refs.md);
   },
   methods: {
     ...mapActions([
-      'UPDATE_CAREER_INFO'
+      'UPDATE_CAREER_INFO',
+      'ADD_CAREER_INFO',
+      'GET_CAREER_INFO',
+      'DELETE_CAREER_INFO'
     ]),
-    handleClick (index, row) {
+    editCareer (index, row) {
       this.isEdit = true;
       this.companyName = row.companyName;
       this.jobName = row.jobName;
       this.markdown.value(row.jobContent);
       this.id = row.id;
+    },
+    deleteCareer (index, row) {
+      this.DELETE_CAREER_INFO({id: row.id});
+      this.GET_CAREER_INFO();
     },
     async save () {      
       let data = {
@@ -135,10 +145,13 @@ export default {
         jobContent: marked(this.markdown.value())
       };
       if (this.isInsert) {
+        console.log(data);
         await this.insertCareer(data);
       } else {
-        this.updateCareer(data);
+        await this.updateCareer(data);
       }
+      let result = await this.GET_CAREER_INFO();
+      console.log(result);
       this.isEdit = false;
     },
     create () {
@@ -164,11 +177,19 @@ export default {
       }
       this.isEdit = false;
     },
-    insertCareer (data) {
-      this.$message({
-        type: 'success',
-        message: '增加成功'
-      });
+    async insertCareer (data) {
+      let result = await this.ADD_CAREER_INFO({data});
+      if (result.code == 1) {
+        this.$message({
+          type: 'success',
+          message: '修改成功'
+        });
+      } else {
+        this.$message({
+          type: 'error',
+          message: '修改失败'
+        });
+      }
       this.isEdit = false;
       this.isInsert = false;
     },
