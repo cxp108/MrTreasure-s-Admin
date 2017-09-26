@@ -115,8 +115,8 @@ export default {
       this.university = this.$store.state.userInfo.university;
     },
     async save () {
-      let skill = marked(this.markDown1.value());
-      let introduction = marked(this.markDown2.value());
+      let skill = this.markDown1.value();
+      let introduction = this.markDown2.value();
       let data = {
         name: this.name,
         diploma: this.diploma,

@@ -62,6 +62,32 @@ const actions = {
     data = JSON.stringify(data);
     let result = await ajax.delete(`${baseURL}/careerInfo/${payload.id}`, data);
     return result;
+  },
+
+  async GET_PRO_INFO({commit, state}, payload) {
+    let result = await ajax.get(`${baseURL}/proInfo/${state.id}`);
+    commit('SET_PRO', {data: result.data});
+    return result;
+  },
+
+  async UPDATE_PRO_INFO({commit, state}, payload) {
+    let data = JSON.stringify(payload.data);
+    let result = await ajax.put(`${baseURL}/proInfo`, data);
+    return result;
+  },
+
+  async ADD_PRO_INFO({commit, state}, payload) {
+    payload.data.userId = state.id;
+    let data = JSON.stringify(payload.data);
+    let result = await ajax.post(`${baseURL}/proInfo`, data);
+    return result;
+  },
+
+  async DELETE_PRO_INFO({commit, state}, payload) {
+    let data = payload;
+    data = JSON.stringify(data);
+    let result = await ajax.delete(`${baseURL}/proInfo/${payload.id}`, data);
+    return result;
   }
 };
 

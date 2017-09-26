@@ -20,8 +20,8 @@
       label="操作"
       width="150">
         <template scope="scope">
-          <el-button @click="handleClick(scope.$index, scope.row)"  type="success" size="small">编辑</el-button>
-          <el-button @click="handleClick(scope.$index, scope.row)"  type="danger" size="small">删除</el-button>
+          <el-button @click="editPro(scope.$index, scope.row)"  type="success" size="small">编辑</el-button>
+          <el-button @click="deletePro(scope.$index, scope.row)"  type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -66,23 +66,24 @@ import  SimpleMDE from 'simplemde';
 import 'simplemde/dist/simplemde.min.css';
 import marked from 'marked';
 import { formatDate } from '@/common';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'project',
   data () {
     return {
-      projectList: [
-        {
-          proUrl: '畅联九洲',
-          proTime: '20170608',
-          proName: '前端工程师'
-        }
-      ],
+      // projectList: [
+      //   {
+      //     proUrl: '畅联九洲',
+      //     proTime: '20170608',
+      //     proName: '前端工程师'
+      //   }
+      // ],
       // 状态控制
       isEdit: false,
       isInsert: false,
 
       // 编辑的属性
-      id: 0,
+      id: null,
       proName: '',
       proTime: '',
       proUrl: '',
@@ -90,43 +91,59 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      projectList: state => state.proInfo
+    }),
     fixDate () {
-      if (this.jobTime.length > 0) {
+      if (this.proTime.length > 0) {
         let start = formatDate(this.proTime[0], 'yyyy-MM-dd');
         let end = formatDate(this.proTime[1], 'yyyy-MM-dd');
         return `${start}~${end}`;
       } else {
-        return '';
+        return null;
       }
     }
   },
   created () {
-    this.projectList = this.$store.state.proInfo;
+    //this.projectList = this.$store.state.proInfo;
+    this.GET_PRO_INFO();
   },
   mounted () {
     this.markdown = new SimpleMDE(this.$refs.md);
   },
   methods: {
-    handleClick (index, row) {
+    ...mapActions([
+      'UPDATE_PRO_INFO',
+      'ADD_PRO_INFO',
+      'GET_PRO_INFO',
+      'DELETE_PRO_INFO'
+    ]),
+    editPro (index, row) {
       this.isEdit = true;
       this.proUrl = row.proUrl;
       this.proName = row.proName;
       this.markdown.value(row.proContent);
       this.id = row.id;
     },
-    save () {      
+    async deletePro (index, row) {
+      console.log('delete');
+      await this.DELETE_PRO_INFO({id: row.id});
+      this.GET_PRO_INFO();
+    },
+    async save () {      
       let data = {
         id: this.id,
         proName: this.proName,
         proUrl: this.proUrl,
         proTime: this.fixDate,
-        proContent: marked(this.markdown.value())
+        proContent: this.markdown.value()
       };
       if (this.isInsert) {
-        this.insertProject(data);
+        await this.insertProject(data);
       } else {
-        this.updateProject(data);
+        await this.updateProject(data);
       }
+      this.GET_PRO_INFO();
       this.isEdit = false;
     },
     create () {
@@ -135,27 +152,28 @@ export default {
       this.proName = '';
       this.proUrl = '';
       this.markdown.value('');
-      this.id = 0;
+      this.id = null;
     },
-    updateProject (data) {  
-      console.log(data);
-      this.$message({
-        type: 'success',
-        message: '修改成功'
-      });
+    async updateProject (data) {  
+      let result = await this.UPDATE_PRO_INFO({data});
+      this.showMsg(result);
       this.isEdit = false;
     },
-    insertProject (data) {
-      console.log(data);
-      this.$message({
-        type: 'success',
-        message: '增加成功'
-      });
+    async insertProject (data) {
+      let result = await this.ADD_PRO_INFO({data});      
+      this.showMsg(result);
       this.isEdit = false;
       this.isInsert = false;
     },
     rollback () {
       this.isEdit = false;
+    },
+    showMsg (result) {
+      let type = result.code == 1?'success':'error';
+      this.$message({
+        type,
+        message: result.msg 
+      })
     }
   }
 }

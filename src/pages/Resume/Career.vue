@@ -114,6 +114,7 @@ export default {
   },
   created () {
     //this.careerList = this.$store.state.careerInfo;
+    this.GET_CAREER_INFO();
   },
   mounted () {
     this.markdown = new SimpleMDE(this.$refs.md);
@@ -142,7 +143,7 @@ export default {
         companyName: this.companyName,
         jobName: this.jobName,
         jobTime: this.fixDate,
-        jobContent: marked(this.markdown.value())
+        jobContent: this.markdown.value()
       };
       if (this.isInsert) {
         console.log(data);
