@@ -17,6 +17,9 @@ import UserInfo from '@/pages/Resume/UserInfo';
 import Career from '@/pages/Resume/Career';
 import Project from '@/pages/Resume/Project';
 
+//Note
+const Note = () => import('@/pages/Note/Note');
+
 Vue.use(Router)
 
 const router =  new Router({
@@ -60,6 +63,11 @@ const router =  new Router({
           path: 'project',
           name: 'Project',
           component: Project
+        },
+        {
+          path: 'note',
+          name: 'Note',
+          component: Note
         }
 
       ]

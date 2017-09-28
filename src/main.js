@@ -20,7 +20,8 @@ import 'element-ui/lib/theme-default/index.css';
 Vue.use(ElementUI);
 
 // 根据环境设置基本API
-window.baseURL = process.env.API;
+//window.baseURL = process.env.API;
+window.baseURL = 'http://localhost:2001/api';
 
 /* eslint-disable no-new */
 new Vue({

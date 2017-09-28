@@ -49,6 +49,14 @@ export default {
           icon: 'fa fa-superpowers'
         }
       ]
+    },
+    {
+      divider: true
+    },
+    {
+      name: '便签',
+      url: '/admin/note',
+      icon: 'fa fa-sticky-note'
     }
   ]
 }
