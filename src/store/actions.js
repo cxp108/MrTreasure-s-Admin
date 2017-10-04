@@ -88,6 +88,29 @@ const actions = {
     data = JSON.stringify(data);
     let result = await ajax.delete(`${baseURL}/proInfo/${payload.id}`, data);
     return result;
+  },
+
+  async GET_NOTE({commit, state}, payload) {
+    let result = await ajax.get(`${baseURL}/note/${payload.id}`);
+    return result;
+  },
+
+  async UPDATE_NOTE({commit, state}, payload) {
+    let data = JSON.stringify(payload.data);
+    let result = await ajax.put(`${baseURL}/note`, data);
+    return result;
+  },
+
+  async INSERT_NOTE({commit}, payload) {
+    let data = JSON.stringify(payload.data);
+    let result = await ajax.post(`${baseURL}/note`, data);
+    return result;
+  },
+
+  async DELETE_NOTE({commit}, payload) {
+    let data = JSON.stringify(payload.data);
+    let result = await ajax.delete(`${baseURL}/note`, data);
+    return result;
   }
 };
 

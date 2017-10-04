@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'note',
   data () {
@@ -57,7 +58,14 @@ export default {
       level3List: []
     }
   },
+  async created () {
+    let result = await this.GET_NOTE();
+    console.log(result);
+  },
   methods: {
+    ...mapActions([
+      'GET_NOTE'
+    ]),
     addNote (index) {
       let text = this[`level${index}`];
       if (!this[`level${index}`]) {
