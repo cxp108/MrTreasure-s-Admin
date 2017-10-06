@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'note',
   data () {
@@ -62,12 +62,18 @@ export default {
     let result = await this.GET_NOTE();
     console.log(result);
   },
+  computed: {
+    ...mapState([
+      'id'
+    ])
+  },
   methods: {
     ...mapActions([
       'GET_NOTE'
     ]),
-    addNote (index) {
-      let text = this[`level${index}`];
+    async addNote (index) {
+      let content = this[`level${index}`];
+      let type = index;
       if (!this[`level${index}`]) {
         this.$message({
           type: 'warning',
@@ -75,9 +81,12 @@ export default {
         })
       } else {
         let item = {
-          text,
-          checked: false
+          content,
+          status: 0,
+          userId: this.id,
+          type
         };
+        let result = await this.INSERT_NOTE({data: item});
         this[`level${index}List`].push(item);
         this[`level${index}`] = '';
       }
